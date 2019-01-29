@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.css" />
+
+  <!-- import js / css -->
+    <script src="/todolist/script.js"></script>
+    <link rel="stylesheet" href="/todolist/style.css"/>
+
+  </head>
+
+
+
+  <body ng-app="todo" ng-controller="TodoCtrl">
+
+    <div class="container">
+
+      <todo-title></todo-title>
+
+      <form name="todoForm" ng-submit="add(newTodoTitle)">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="newTodoTitle"
+          placeholder="insert new todo title" autofocus minlength="3">
+          <span class="input-group-btn">
+            <button class="btn btn-success" type="submit">ADD</button>
+          </span>
+        </div>
+        <div ng-show="todoForm.$dirty && todoForm.$invalid">
+          <div class="alert alert-warning" role="alert">Min length : 3 Word</div>
+        </div>
+      </form>
+
+      <br/>
+
+      <ul class="list-unstyled">
+          <li ng-repeat="todo in todos | filter:statusFilter">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input type="checkbox" ng-model="todo.completed">
+                </div>
+              </div>
+              <input type="text" class="form-control" ng-model="todo.title">
+              <span class="input-group-btn">
+                <button class="btn btn-danger" type="button" ng-click="remove(todo)">Remove</button>
+              </span>
+            </div>
+          </li>
+      </ul>
+
+      <button class="btn btn-primary" ng-click="statusFilter={completed:true}">Completed</button>
+      <button class="btn btn-primary" ng-click="statusFilter={completed:false}">Active</button>
+      <button class="btn btn-primary" ng-click="statusFilter={}">All</button>
+
+    </div>
+
+
+
+
+
+  </body>
+
+</html>
